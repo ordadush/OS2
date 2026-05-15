@@ -146,6 +146,13 @@ void            lcg_init(void);
 void            lcg_srand(uint);
 uint            lcg_rand(void);
 
+// israeli.c
+void            israeli_locks_init(void);
+int             israeli_create(int);
+int             israeli_acquire(int);
+int             israeli_release(int);
+int             israeli_destroy(int);
+
 // trap.c
 extern uint     ticks;
 void            trapinit(void);
