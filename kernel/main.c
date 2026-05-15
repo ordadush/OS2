@@ -30,6 +30,7 @@ main()
     virtio_disk_init(); // emulated hard disk
     lcg_init();           // pseudo-random number generator
     israeli_locks_init(); // Israeli lock table
+    race_init();          // relay race scoreboard
     userinit();           // first user process
     __sync_synchronize();
     started = 1;
