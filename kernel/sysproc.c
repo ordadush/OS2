@@ -6,6 +6,27 @@
 #include "spinlock.h"
 #include "proc.h"
 
+static uint lcg_state = 0;
+static struct spinlock lcg_lock;
+
+void
+lcg_srand(uint seed)
+{
+  acquire(&lcg_lock);
+  lcg_state = seed;
+  release(&lcg_lock);
+}
+
+uint
+lcg_rand(void)
+{
+  acquire(&lcg_lock);
+  lcg_state = 1664525 * lcg_state + 1013904223;
+  uint val = lcg_state;
+  release(&lcg_lock);
+  return val;
+}
+
 uint64
 sys_exit(void)
 {
@@ -88,4 +109,25 @@ sys_uptime(void)
   xticks = ticks;
   release(&tickslock);
   return xticks;
+}
+
+void
+lcg_init(void)
+{
+  initlock(&lcg_lock, "lcg");
+}
+
+uint64
+sys_lcg_srand(void)
+{
+  uint seed;
+  argint(0, (int*)&seed);
+  lcg_srand(seed);
+  return 0;
+}
+
+uint64
+sys_lcg_rand(void)
+{
+  return lcg_rand();
 }
