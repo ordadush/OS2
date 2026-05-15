@@ -153,6 +153,13 @@ int             israeli_acquire(int);
 int             israeli_release(int);
 int             israeli_destroy(int);
 
+// race.c
+void            race_init(void);
+int             race_reset(int, int);
+int             race_add_score(int);
+int             race_get_score(int);
+int             race_get_winner(void);
+
 // trap.c
 extern uint     ticks;
 void            trapinit(void);
