@@ -141,6 +141,11 @@ int             fetchstr(uint64, char*, int);
 int             fetchaddr(uint64, uint64*);
 void            syscall();
 
+// sysproc.c (lcg)
+void            lcg_init(void);
+void            lcg_srand(uint);
+uint            lcg_rand(void);
+
 // trap.c
 extern uint     ticks;
 void            trapinit(void);
